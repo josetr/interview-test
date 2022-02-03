@@ -15,6 +15,7 @@ function rootReducer(state = initialState, action) {
       for (const s in state.students) {
         if (state.students[s].id === action.payload.id) {
           state.students[s] = action.payload;
+          break;
         }
       }
       break;
@@ -22,6 +23,7 @@ function rootReducer(state = initialState, action) {
       for (const t in state.teachers)
         if (state.teachers[t].id === action.payload.teacherId) {
           state.teachers[t].students.push(action.payload.studentId)
+          break;
         }
       break;
     default:

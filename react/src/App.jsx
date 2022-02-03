@@ -28,12 +28,9 @@ class ConnectedApp extends Component {
       updatingStudent: null,
       assignStudentTo: null,
     };
-    this.handleNewTeacher = this.handleNewTeacher.bind(this);
-    this.handleNewStudent = this.handleNewStudent.bind(this);
-    this.handleAssignStudent = this.handleAssignStudent.bind(this);
   }
 
-  handleNewTeacher(event) {
+  handleNewTeacher = (event) => {
     event.preventDefault();
     const { newTeacherName } = this.state;
     const id = uuidv1();
@@ -41,7 +38,7 @@ class ConnectedApp extends Component {
     this.setState({ newTeacherName: "" });
   }
 
-  handleNewStudent(event) {
+  handleNewStudent = (event) => {
     event.preventDefault();
     const { newStudentName } = this.state;
     const id = uuidv1();
@@ -49,7 +46,7 @@ class ConnectedApp extends Component {
     this.setState({ newStudentName: "" });
   }
 
-  handleUpdateStudent(s, name) {
+  handleUpdateStudent = (s, name) => {
     const isUpdating = this.state.updatingStudent === s.id;
     if (isUpdating) {
       this.props.updateStudent({ name, id: s.id });
@@ -60,7 +57,7 @@ class ConnectedApp extends Component {
     this.setState({ updatingStudent: s.id, updateStudentName: s.name });
   }
 
-  handleAssignStudent(teacherId, studentId) {
+  handleAssignStudent = (teacherId, studentId) => {
     this.props.assignStudentToTeacher(teacherId, studentId);
     this.setState({ assignStudentTo: null });
   }

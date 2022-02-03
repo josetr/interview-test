@@ -1,0 +1,37 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CONFIGURATION: Release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Restore C# backend
+        run: cd dotnet && dotnet restore
+
+      - name: Build C# backend
+        run: cd dotnet && dotnet build --nologo --no-restore
+
+      - name: Install React frontend dependencies
+        run: cd react && npm install
+
+      - name: Build React frontend
+        run: cd react && npm run build
+
+      - name: Test C# backend
+        run: cd dotnet && dotnet test -r ../artifacts/TestResults --logger "html"
+
+      - name: Test React frontend
+        run: cd react && npm run test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: InterviewTest.TestResults.${{matrix.os}}
+          path: |
+            artifacts/TestResults/*.html

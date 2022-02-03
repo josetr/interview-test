@@ -4,26 +4,30 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === "ADD_TEACHER") {
-    state.teachers.push(action.payload);
-  }
-  if (action.type === "ADD_STUDENT") {
-    state.students.push(action.payload);
-  }
-  if (action.type === "UPDATE_STUDENT") {
-    for (const s in state.students) {
-      if (state.students[s].id === action.payload.id) {
-        state.students[s] = action.payload;
+  switch (action.type) {
+    case "ADD_TEACHER":
+      state.teachers.push(action.payload);
+      break;
+    case "ADD_STUDENT":
+      state.students.push(action.payload);
+      break;
+    case "UPDATE_STUDENT":
+      for (const s in state.students) {
+        if (state.students[s].id === action.payload.id) {
+          state.students[s] = action.payload;
+        }
       }
-    }
+      break;
+    case "ASSIGN_STUDENT_TO_TEACHER":
+      for (const t in state.teachers)
+        if (state.teachers[t].id === action.payload.teacherId) {
+          state.teachers[t].students.push(action.payload.studentId)
+        }
+      break;
+    default:
+      break;
   }
-  if (action.type === "ASSIGN_STUDENT_TO_TEACHER") {
-    for (const t in state.teachers) {
-      if (state.teachers[t].id === action.payload.teacherId) {
-        state.teachers[t].students.push(action.payload.studentId)
-      }
-    }
-  }
+
   return state;
 }
 

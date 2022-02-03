@@ -63,8 +63,8 @@ class ConnectedApp extends Component {
   }
 
   render() {
-    let teachers = this.props.teachers;
-    let students = this.props.students;
+    const teachers = this.props.teachers;
+    const students = this.props.students;
 
     return (
       <div className="app">

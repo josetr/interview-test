@@ -11,14 +11,14 @@ function rootReducer(state = initialState, action) {
     state.students.push(action.payload);
   }
   if (action.type === "UPDATE_STUDENT") {
-    for (let s in state.students) {
+    for (const s in state.students) {
       if (state.students[s].id === action.payload.id) {
         state.students[s] = action.payload;
       }
     }
   }
   if (action.type === "ASSIGN_STUDENT_TO_TEACHER") {
-    for (let t in state.teachers) {
+    for (const t in state.teachers) {
       if (state.teachers[t].id === action.payload.teacherId) {
         state.teachers[t].students.push(action.payload.studentId)
       }

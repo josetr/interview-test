@@ -77,20 +77,20 @@ class ConnectedApp extends Component {
               <td>Name</td>
               <td>Students</td>
             </tr>
-            {teachers.map(t => <tr>
-              <td>{t.id}</td>
-              <td>{t.name}</td>
+            {teachers.map(teacher => <tr>
+              <td>{teacher.id}</td>
+              <td>{teacher.name}</td>
               <td>
                 <ul>
-                  {t.students.map(s => <li>{students.map(s1 => s === s1.id ? s1.name : '')}</li>)}
-                  {this.state.assignStudentTo === t.id ?
-                    <select onChange={e => this.handleAssignStudent(t.id, e.target.value)}>
+                  {teacher.students.map(student => <li>{students.map(currentStudent => student === currentStudent.id ? currentStudent.name : '')}</li>)}
+                  {this.state.assignStudentTo === teacher.id ?
+                    <select onChange={e => this.handleAssignStudent(teacher.id, e.target.value)}>
                       <option selected="selected"></option>
-                      {students.map(s => <option value={s.id}>{s.name}</option>)}
+                      {students.map(student => <option value={student.id}>{student.name}</option>)}
                     </select>
                     : null}
                   <button type="button" className="btn"
-                          onClick={() => this.setState({ assignStudentTo: t.id })}>
+                          onClick={() => this.setState({ assignStudentTo: teacher.id })}>
                     Assign Student
                   </button>
                 </ul>
@@ -118,14 +118,14 @@ class ConnectedApp extends Component {
               <td>Name</td>
               <td></td>
             </tr>
-            {students.map(s => <tr>
-              <td>{s.id}</td>
-              <td>{this.state.updatingStudent === s.id ? <input type="text" value={this.state.updateStudentName}
-                                                                onChange={e => this.setState({ updateStudentName: e.target.value })}/> : s.name}</td>
+            {students.map(student => <tr>
+              <td>{student.id}</td>
+              <td>{this.state.updatingStudent === student.id ? <input type="text" value={this.state.updateStudentName}
+                                                                onChange={e => this.setState({ updateStudentName: e.target.value })}/> : student.name}</td>
               <td>
                 <button type="button" className="btn"
-                        onClick={e => this.handleUpdateStudent(s, this.state.updateStudentName)}>
-                  {this.state.updatingStudent !== s.id ? "Update Student" : "Done"}
+                        onClick={e => this.handleUpdateStudent(student, this.state.updateStudentName)}>
+                  {this.state.updatingStudent !== student.id ? "Update Student" : "Done"}
                 </button>
               </td>
             </tr>)}

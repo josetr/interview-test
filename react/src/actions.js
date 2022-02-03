@@ -1,8 +1,8 @@
-export function addTeacher(payload) {
-  return { type: "ADD_TEACHER", payload }
+export function addTeacher(teacher) {
+  return { type: "ADD_TEACHER", payload: teacher }
 }
-export function addStudent(payload) {
-  return { type: "ADD_STUDENT", payload }
+export function addStudent(student) {
+  return { type: "ADD_STUDENT", payload: student }
 }
 export function updateStudent(payload) {
   return { type: "UPDATE_STUDENT", payload }

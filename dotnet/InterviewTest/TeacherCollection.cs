@@ -8,12 +8,12 @@ namespace InterviewTest
     {
         private Dictionary<string, Teacher> _teachers = new Dictionary<string, Teacher>();
 
-        internal void AddTeacher(Teacher teacher)
+        public void AddTeacher(Teacher teacher)
         {
             _teachers[teacher.Id] = teacher;
         }
 
-        internal List<Teacher> GetTeachers()
+        public List<Teacher> GetTeachers()
         {
             return _teachers.Values.ToList();
         }

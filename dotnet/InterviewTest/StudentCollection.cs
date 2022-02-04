@@ -8,12 +8,12 @@ namespace InterviewTest
     {
         private Dictionary<string, Student> students = new Dictionary<string, Student>();
 
-        internal void AddStudent(Student student)
+        public void AddStudent(Student student)
         {
             students[student.Id] = student;
         }
 
-        internal List<Student> GetStudents()
+        public List<Student> GetStudents()
         {
             return students.Values.ToList();
         }

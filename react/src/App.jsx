@@ -77,16 +77,16 @@ class ConnectedApp extends Component {
               <td>Name</td>
               <td>Students</td>
             </tr>
-            {teachers.map(teacher => <tr>
+            {teachers.map(teacher => <tr key={teacher.id}>
               <td>{teacher.id}</td>
               <td>{teacher.name}</td>
               <td>
                 <ul>
-                  {teacher.students.map(student => <li>{students.map(currentStudent => student === currentStudent.id ? currentStudent.name : '')}</li>)}
+                  {teacher.students.map(student => <li key={student.id}>{students.map(currentStudent => student === currentStudent.id ? currentStudent.name : '')}</li>)}
                   {this.state.assignStudentTo === teacher.id ?
                     <select onChange={e => this.handleAssignStudent(teacher.id, e.target.value)}>
                       <option selected="selected"></option>
-                      {students.map(student => <option value={student.id}>{student.name}</option>)}
+                      {students.map(student => <option key={student.id} value={student.id}>{student.name}</option>)}
                     </select>
                     : null}
                   <button type="button" className="btn"
@@ -118,7 +118,7 @@ class ConnectedApp extends Component {
               <td>Name</td>
               <td></td>
             </tr>
-            {students.map(student => <tr>
+            {students.map(student => <tr key={student.id}>
               <td>{student.id}</td>
               <td>{this.state.updatingStudent === student.id ? <input type="text" value={this.state.updateStudentName}
                                                                 onChange={e => this.setState({ updateStudentName: e.target.value })}/> : student.name}</td>

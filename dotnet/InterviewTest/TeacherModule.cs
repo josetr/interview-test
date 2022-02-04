@@ -21,7 +21,6 @@ namespace InterviewTest
             Get("/", args => Response.AsJson(teacherList.GetTeachers()));
             Post("/", _ =>
             {
-                Console.WriteLine("I am here");
                 var teacher = this.Bind<Teacher>();
                 teacherList.AddTeacher(teacher);
                 return HttpStatusCode.Created;

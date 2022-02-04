@@ -6,7 +6,7 @@ namespace InterviewTest
 {
     public class TeacherCollection
     {
-        private Dictionary<string, Teacher> _teachers = new Dictionary<string, Teacher>();
+        private Dictionary<Guid, Teacher> _teachers = new Dictionary<Guid, Teacher>();
 
         public void AddTeacher(Teacher teacher)
         {
@@ -18,14 +18,14 @@ namespace InterviewTest
             return _teachers.Values.ToList();
         }
 
-        public Teacher GetTeacherById(string teacherId)
+        public Teacher GetTeacherById(Guid teacherId)
         {
             return _teachers[teacherId];
         }
 
         public void Clear()
         {
-            _teachers = new Dictionary<string, Teacher>();
+            _teachers = new Dictionary<Guid, Teacher>();
         }
     }
 }

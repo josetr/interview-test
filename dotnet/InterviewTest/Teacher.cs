@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace InterviewTest
@@ -12,7 +13,7 @@ namespace InterviewTest
 
         public List<Student> Students { get; set; }
 
-        public Teacher(string id, string name) : base(id, name)
+        public Teacher(Guid id, string name) : base(id, name)
         {
             Students = new List<Student>();
         }

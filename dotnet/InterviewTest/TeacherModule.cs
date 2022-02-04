@@ -13,7 +13,7 @@ namespace InterviewTest
             {
             }
 
-            public string StudentId { get; set; }
+            public Guid StudentId { get; set; }
         }
 
         public TeacherModule(TeacherCollection teacherList, StudentCollection studentList) : base("/teachers")
@@ -28,7 +28,7 @@ namespace InterviewTest
             Put("/{teacherId}", args =>
             {
                 var putBody = this.Bind<PutBody>();
-                string teacherId = args.teacherId;
+                Guid teacherId = args.teacherId;
                 var teacherToUpdate = teacherList.GetTeacherById(teacherId);
                 var studentToAdd = studentList.GetStudentById(putBody.StudentId);
                 teacherToUpdate.AddStudent(studentToAdd);

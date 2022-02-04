@@ -6,7 +6,7 @@ namespace InterviewTest
 {
     public class StudentCollection
     {
-        private Dictionary<string, Student> students = new Dictionary<string, Student>();
+        private Dictionary<Guid, Student> students = new Dictionary<Guid, Student>();
 
         public void AddStudent(Student student)
         {
@@ -18,14 +18,14 @@ namespace InterviewTest
             return students.Values.ToList();
         }
 
-        public Student GetStudentById(string studentId)
+        public Student GetStudentById(Guid studentId)
         {
             return students[studentId];
         }
 
         public void Clear()
         {
-            students = new Dictionary<string, Student>();
+            students = new Dictionary<Guid, Student>();
         }
 
         public void Update(Student studentToUpdate, StudentModule.PutParams updates)

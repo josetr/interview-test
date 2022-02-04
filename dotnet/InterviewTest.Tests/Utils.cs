@@ -8,9 +8,11 @@ namespace InterviewTest.Tests
 {
     public static class Utils
     {
+        private static Guid GuidOne = Guid.NewGuid();
+
         public static async Task<Student> CreateTestStudentAsync(this Browser browser)
         {
-            var testStudent = new Student("1", "Student");
+            var testStudent = new Student(GuidOne, "Student");
 
             var postResult = await browser.Post("/students", with =>
             {
@@ -24,7 +26,7 @@ namespace InterviewTest.Tests
 
         public static async Task<Teacher> CreateTestTeacherAsync(this Browser browser)
         {
-            var testTeacher = new Teacher("1", "Teacher");
+            var testTeacher = new Teacher(GuidOne, "Teacher");
 
             var postResult = await browser.Post("/teachers", with =>
             {
@@ -36,7 +38,7 @@ namespace InterviewTest.Tests
             return testTeacher;
         }
 
-        public static async Task AddStudentToTeacherAsync(this Browser browser, string studentId, string teacherId)
+        public static async Task AddStudentToTeacherAsync(this Browser browser, Guid studentId, Guid teacherId)
         {
             var putBody = new {studentId};
             var postResult = await browser.Put($"/teachers/{teacherId}", with =>

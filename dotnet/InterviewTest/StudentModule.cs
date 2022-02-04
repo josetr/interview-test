@@ -2,6 +2,7 @@ namespace InterviewTest
 {
     using Nancy;
     using Nancy.ModelBinding;
+    using System;
 
     public sealed class StudentModule : NancyModule
     {
@@ -11,7 +12,7 @@ namespace InterviewTest
             {
             }
 
-            public string TeacherId { get; set; }
+            public Guid? TeacherId { get; set; }
         }
 
         public class PutParams
@@ -30,7 +31,7 @@ namespace InterviewTest
                 var studentRequestParams = this.Bind<StudentRequestParams>();
                 var teacherId = studentRequestParams.TeacherId;
                 return teacherId != null
-                    ? Response.AsJson(teacherList.GetTeacherById(teacherId).Students)
+                    ? Response.AsJson(teacherList.GetTeacherById(teacherId.Value).Students)
                     : Response.AsJson(studentList.GetStudents());
             });
             Post("/", _ =>
@@ -42,7 +43,7 @@ namespace InterviewTest
             Put("/{studentId}", args =>
             {
                 var updates = this.Bind<PutParams>();
-                string studentId = args.studentId;
+                Guid studentId = args.studentId;
                 var studentToUpdate = studentList.GetStudentById(studentId);
                 studentList.Update(studentToUpdate, updates);
                 return Response.AsJson(studentToUpdate);

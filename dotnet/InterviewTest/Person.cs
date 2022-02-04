@@ -1,11 +1,13 @@
 namespace InterviewTest
 {
+    using System;
+
     public class Person
     {
         public string Name { get; set; }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
-        protected Person(string id, string name)
+        protected Person(Guid id, string name)
         {
             Name = name;
             Id = id;

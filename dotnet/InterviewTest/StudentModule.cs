@@ -1,21 +1,12 @@
 namespace InterviewTest
 {
+    using InterviewTest.Models;
     using Nancy;
     using Nancy.ModelBinding;
     using System;
 
     public sealed class StudentModule : NancyModule
     {
-        public class GetTeacherStudentsRequest
-        {
-            public Guid? TeacherId { get; set; }
-        }
-
-        public class UpdateStudentRequest
-        {
-            public string Name { get; set; }
-        }
-
         public StudentModule(TeacherCollection teacherList, StudentCollection studentList) : base("/students")
         {
             Get("/", args =>

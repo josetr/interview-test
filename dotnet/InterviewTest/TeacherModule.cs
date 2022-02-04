@@ -2,16 +2,12 @@ using System;
 
 namespace InterviewTest
 {
+    using InterviewTest.Models;
     using Nancy;
     using Nancy.ModelBinding;
 
     public sealed class TeacherModule : NancyModule
     {
-        public class AddTeacherStudentRequest
-        {
-            public Guid StudentId { get; set; }
-        }
-
         public TeacherModule(TeacherCollection teacherList, StudentCollection studentList) : base("/teachers")
         {
             Get("/", args => Response.AsJson(teacherList.GetTeachers()));

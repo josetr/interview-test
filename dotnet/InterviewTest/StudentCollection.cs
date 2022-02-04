@@ -1,3 +1,4 @@
+using InterviewTest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace InterviewTest
             students = new Dictionary<Guid, Student>();
         }
 
-        public void Update(Student studentToUpdate, StudentModule.UpdateStudentRequest updates)
+        public void Update(Student studentToUpdate, UpdateStudentRequest updates)
         {
             students[studentToUpdate.Id].Name = updates.Name;
         }

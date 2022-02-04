@@ -7,12 +7,8 @@ namespace InterviewTest
 
     public sealed class TeacherModule : NancyModule
     {
-        protected class PutBody
+        public class AddTeacherStudentRequest
         {
-            public PutBody()
-            {
-            }
-
             public Guid StudentId { get; set; }
         }
 
@@ -27,7 +23,7 @@ namespace InterviewTest
             });
             Put("/{teacherId}", args =>
             {
-                var putBody = this.Bind<PutBody>();
+                var putBody = this.Bind<AddTeacherStudentRequest>();
                 Guid teacherId = args.teacherId;
                 var teacherToUpdate = teacherList.GetTeacherById(teacherId);
                 var studentToAdd = studentList.GetStudentById(putBody.StudentId);

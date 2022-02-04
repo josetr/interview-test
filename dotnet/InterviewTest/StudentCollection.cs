@@ -28,7 +28,7 @@ namespace InterviewTest
             students = new Dictionary<Guid, Student>();
         }
 
-        public void Update(Student studentToUpdate, StudentModule.PutParams updates)
+        public void Update(Student studentToUpdate, StudentModule.UpdateStudentRequest updates)
         {
             students[studentToUpdate.Id].Name = updates.Name;
         }

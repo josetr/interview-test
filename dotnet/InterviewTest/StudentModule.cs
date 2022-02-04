@@ -23,11 +23,8 @@ namespace InterviewTest
             public string Name { get; set; }
         }
 
-        public StudentModule() : base("/students")
+        public StudentModule(TeacherCollection teacherList, StudentCollection studentList) : base("/students")
         {
-            var studentList = StudentCollection.GetInstance();
-            var teacherList = TeacherCollection.GetInstance();
-
             Get("/", args =>
             {
                 var studentRequestParams = this.Bind<StudentRequestParams>();

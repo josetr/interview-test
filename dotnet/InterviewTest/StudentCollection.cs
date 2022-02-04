@@ -6,20 +6,7 @@ namespace InterviewTest
 {
     public class StudentCollection
     {
-        private static StudentCollection instance;
-        private Dictionary<string, Student> students;
-
-        public static StudentCollection GetInstance()
-        {
-            if (instance != null) return instance;
-            instance = new StudentCollection();
-            return instance;
-        }
-
-        private StudentCollection()
-        {
-            students = new Dictionary<string, Student>();
-        }
+        private Dictionary<string, Student> students = new Dictionary<string, Student>();
 
         internal void AddStudent(Student student)
         {

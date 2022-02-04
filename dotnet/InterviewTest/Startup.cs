@@ -7,7 +7,7 @@ namespace InterviewTest
     {
         public void Configure(IApplicationBuilder app)
         {
-            app.UseOwin(x => x.UseNancy());
+            app.UseOwin(x => x.UseNancy(new NancyOptions() { Bootstrapper = new Bootstrapper() }));
         }
     }
 }

@@ -1,3 +1,5 @@
+[![CI](https://github.com/josetr/interview-test/actions/workflows/main.yaml/badge.svg)](https://github.com/josetr/interview-test/actions) 
+
 ## Code Exercise
 
 Part of the Infinitas Learning interview process is a pair programming exercise where you will have an opportunity to pair program with one of our engineers to demonstrate your ability to write code and to collaborate with others. Since we expect our prospective employees to lead busy lives, we do not have a take-home exercise that you would work during your own time and subsequently extend during our pairing exercise. Additionally, we do not like the pressure placed on candidates by simply dropping into an

@@ -21,7 +21,8 @@ namespace InterviewTest
 
         public Student GetStudentById(Guid studentId)
         {
-            return students[studentId];
+            students.TryGetValue(studentId, out var student);
+            return student;
         }
 
         public void Clear()

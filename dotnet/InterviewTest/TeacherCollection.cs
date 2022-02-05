@@ -20,9 +20,9 @@ namespace InterviewTest
 
         public Teacher GetTeacherById(Guid teacherId)
         {
-            return _teachers[teacherId];
+            _teachers.TryGetValue(teacherId, out var teacher);
+            return teacher;
         }
-
         public void Clear()
         {
             _teachers.Clear();

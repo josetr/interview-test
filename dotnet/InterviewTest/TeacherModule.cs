@@ -21,14 +21,21 @@ namespace InterviewTest
             {
                 var studentRequestParams = this.Bind<GetTeacherStudentsRequest>();
                 var teacherId = studentRequestParams.TeacherId;
-                return Response.AsJson(teacherList.GetTeacherById(teacherId).Students);
+                var teacher = teacherList.GetTeacherById(teacherId);
+                if (teacher == null)
+                    return HttpStatusCode.NotFound;
+                return Response.AsJson(teacher.Students);
             });
             Post("/{teacherId}/students", args =>
             {
                 var putBody = this.Bind<AddTeacherStudentRequest>();
                 Guid teacherId = args.teacherId;
                 var teacherToUpdate = teacherList.GetTeacherById(teacherId);
+                if (teacherToUpdate == null)
+                    return HttpStatusCode.NotFound;
                 var studentToAdd = studentList.GetStudentById(putBody.StudentId);
+                if (studentToAdd == null)
+                    return HttpStatusCode.NotFound;
                 teacherToUpdate.AddStudent(studentToAdd);
                 return Response.AsJson(teacherToUpdate);
             });

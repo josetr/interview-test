@@ -24,6 +24,8 @@ namespace InterviewTest
                 var updates = this.Bind<UpdateStudentRequest>();
                 Guid studentId = args.studentId;
                 var studentToUpdate = studentList.GetStudentById(studentId);
+                if (studentToUpdate == null)
+                    return HttpStatusCode.NotFound;
                 studentList.Update(studentToUpdate, updates);
                 return Response.AsJson(studentToUpdate);
             });

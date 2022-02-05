@@ -25,7 +25,7 @@ namespace InterviewTest
 
         public void Clear()
         {
-            _teachers = new Dictionary<Guid, Teacher>();
+            _teachers.Clear();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace InterviewTest
 
         public void Clear()
         {
-            students = new Dictionary<Guid, Student>();
+            students.Clear();
         }
 
         public void Update(Student studentToUpdate, UpdateStudentRequest updates)

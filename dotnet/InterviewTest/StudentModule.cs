@@ -34,7 +34,7 @@ namespace InterviewTest
                 if (studentToUpdate == null)
                     return HttpStatusCode.NotFound;
                 studentToUpdate.Name = updates.Name;
-                return Response.AsJson(studentToUpdate);
+                return Response.AsJson(studentToUpdate.ToDto());
             });
         }
     }

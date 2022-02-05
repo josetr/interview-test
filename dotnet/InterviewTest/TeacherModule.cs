@@ -5,7 +5,8 @@ namespace InterviewTest
     using InterviewTest.Models;
     using Nancy;
     using Nancy.ModelBinding;
-using Nancy.Validation;
+    using Nancy.Validation;
+    using System.Linq;
 
     public sealed class TeacherModule : NancyModule
     {
@@ -31,7 +32,7 @@ using Nancy.Validation;
                 var teacher = teacherList.GetTeacherById(teacherId);
                 if (teacher == null)
                     return HttpStatusCode.NotFound;
-                return Response.AsJson(teacher.Students);
+                return Response.AsJson(teacher.Students.Select(x => x.ToDto()));
             });
             Post("/{teacherId}/students", args =>
             {
@@ -46,7 +47,7 @@ using Nancy.Validation;
                 if (studentToAdd == null)
                     return HttpStatusCode.NotFound;
                 teacherToUpdate.AddStudent(studentToAdd);
-                return Response.AsJson(teacherToUpdate);
+                return Response.AsJson(teacherToUpdate.ToDto());
             });
         }
     }

@@ -11,20 +11,14 @@ namespace InterviewTest
         {
         }
 
-        public List<Student> Students { get; set; }
+        public List<Student> Students { get; set; } = new List<Student>();
 
         public Teacher(Guid id, string name) : base(id, name)
         {
-            Students = new List<Student>();
         }
 
         public void AddStudent(Student studentToAdd)
         {
-            if (Students == null)
-            {
-                Students = new List<Student>();
-            }
-
             Students.Add(studentToAdd);
         }
     }

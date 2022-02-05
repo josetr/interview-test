@@ -8,9 +8,9 @@ namespace InterviewTest
     {
         private Dictionary<Guid, Teacher> _teachers = new Dictionary<Guid, Teacher>();
 
-        public void AddTeacher(Teacher teacher)
+        public bool AddTeacher(Teacher teacher)
         {
-            _teachers[teacher.Id] = teacher;
+            return _teachers.TryAdd(teacher.Id, teacher);
         }
 
         public IEnumerable<Teacher> GetTeachers()

@@ -14,7 +14,8 @@ namespace InterviewTest
             Post("/", _ =>
             {
                 var teacher = this.Bind<Teacher>();
-                teacherList.AddTeacher(teacher);
+                if (!teacherList.AddTeacher(teacher))
+                    return HttpStatusCode.Conflict;
                 return HttpStatusCode.Created;
             });
             Get("/{teacherId}/students", args =>

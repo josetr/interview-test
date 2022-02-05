@@ -9,9 +9,9 @@ namespace InterviewTest
     {
         private Dictionary<Guid, Student> students = new Dictionary<Guid, Student>();
 
-        public void AddStudent(Student student)
+        public bool AddStudent(Student student)
         {
-            students[student.Id] = student;
+            return students.TryAdd(student.Id, student);
         }
 
         public IEnumerable<Student> GetStudents()

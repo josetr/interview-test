@@ -3,6 +3,7 @@ namespace InterviewTest
     using InterviewTest.Models;
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Validation;
     using System;
 
     public sealed class StudentModule : NancyModule
@@ -22,6 +23,9 @@ namespace InterviewTest
             Put("/{studentId}", args =>
             {
                 var updates = this.Bind<UpdateStudentRequest>();
+                var validationResult = this.Validate(updates);
+                if (!validationResult.IsValid)
+                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 Guid studentId = args.studentId;
                 var studentToUpdate = studentList.GetStudentById(studentId);
                 if (studentToUpdate == null)

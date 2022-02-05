@@ -2,12 +2,11 @@
 
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 
-public class AddTeacherRequest
+public record AddTeacherRequest
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; init; }
+    public string Name { get; init; }
 }
 
 public class AddTeacherRequestValidator : AbstractValidator<AddTeacherRequest>

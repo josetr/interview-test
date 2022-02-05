@@ -1,11 +1,10 @@
 ﻿namespace InterviewTest.Models;
 
 using System;
-using System.Collections.Generic;
 
-public class TeacherDto
+public record TeacherDto
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public List<Student> Students { get; set; }
+    public Guid Id { get; init; }
+    public string Name { get; init; }
+    public RecordList<StudentDto> Students { get; init; }
 }

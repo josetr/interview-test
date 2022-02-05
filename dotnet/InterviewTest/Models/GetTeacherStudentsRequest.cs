@@ -3,9 +3,9 @@
 using FluentValidation;
 using System;
 
-public class GetTeacherStudentsRequest
+public record GetTeacherStudentsRequest
 {
-    public Guid TeacherId { get; set; }
+    public Guid TeacherId { get; init; }
 }
 
 public class GetTeacherStudentsRequestValidator : AbstractValidator<GetTeacherStudentsRequest>

@@ -2,9 +2,9 @@
 
 using FluentValidation;
 
-public class UpdateStudentRequest
+public record UpdateStudentRequest
 {
-    public string Name { get; set; }
+    public string Name { get; init; }
 }
 
 public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequest>

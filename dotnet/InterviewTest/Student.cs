@@ -1,10 +1,9 @@
-namespace InterviewTest
-{
-    using System;
+namespace InterviewTest;
 
-    public class Student : Person
-    {
-        private Student() { }
-        public Student(Guid id, string name) : base(id, name) { }
-    }
+using System;
+
+public class Student : Person
+{
+    private Student() { }
+    public Student(Guid id, string name) : base(id, name) { }
 }

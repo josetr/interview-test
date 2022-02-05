@@ -1,10 +1,9 @@
-﻿namespace InterviewTest.Models
-{
-    using System;
+﻿namespace InterviewTest.Models;
 
-    public class StudentDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-    }
+using System;
+
+public class StudentDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
 }

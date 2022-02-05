@@ -1,28 +1,27 @@
-namespace InterviewTest
+namespace InterviewTest;
+
+using System;
+
+public class Person
 {
-    using System;
+    public string Name { get; set; }
+    public Guid Id { get; set; }
 
-    public class Person
+    protected Person(Guid id, string name)
     {
-        public string Name { get; set; }
-        public Guid Id { get; set; }
+        Name = name;
+        Id = id;
+    }
 
-        protected Person(Guid id, string name)
-        {
-            Name = name;
-            Id = id;
-        }
+    protected Person() { }
 
-        protected Person() { }
+    public override bool Equals(object obj)
+    {
+        return obj is Person person && Id == person.Id;
+    }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Person person && Id == person.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
     }
 }

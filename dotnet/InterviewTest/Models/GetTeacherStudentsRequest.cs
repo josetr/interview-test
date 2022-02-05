@@ -1,18 +1,17 @@
-﻿namespace InterviewTest.Models
+﻿namespace InterviewTest.Models;
+
+using FluentValidation;
+using System;
+
+public class GetTeacherStudentsRequest
 {
-    using FluentValidation;
-    using System;
+    public Guid TeacherId { get; set; }
+}
 
-    public class GetTeacherStudentsRequest
+public class GetTeacherStudentsRequestValidator : AbstractValidator<GetTeacherStudentsRequest>
+{
+    public GetTeacherStudentsRequestValidator()
     {
-        public Guid TeacherId { get; set; }
-    }
-
-    public class GetTeacherStudentsRequestValidator : AbstractValidator<GetTeacherStudentsRequest>
-    {
-        public GetTeacherStudentsRequestValidator()
-        {
-            RuleFor(request => request.TeacherId).NotEmpty();
-        }
+        RuleFor(request => request.TeacherId).NotEmpty();
     }
 }

@@ -1,84 +1,82 @@
-using System;
+namespace InterviewTest.Tests;
+
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Testing;
 using Xunit;
 
-namespace InterviewTest.Tests
+public class StudentTest
 {
-    public class StudentTest
+    [Fact]
+    public async Task Should_GetAnEmptyListOfStudentsAsync()
     {
-        [Fact]
-        public async Task Should_GetAnEmptyListOfStudentsAsync()
+        var bootstrapper = new Bootstrapper();
+        var browser = new Browser(bootstrapper);
+
+        var result = await browser.Get("/students", with =>
         {
-            var bootstrapper = new Bootstrapper();
-            var browser = new Browser(bootstrapper);
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+        });
 
-            var result = await browser.Get("/students", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-            });
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        Assert.Equal("[]", result.Body.AsString());
+    }
 
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.Equal("[]", result.Body.AsString());
-        }
+    [Fact]
+    public async Task Should_GetListOfStudentsAsync()
+    {
+        var bootstrapper = new Bootstrapper();
+        var browser = new Browser(bootstrapper);
+        var testStudent = await browser.CreateTestStudentAsync();
 
-        [Fact]
-        public async Task Should_GetListOfStudentsAsync()
+        var result = await browser.Get("/students", with =>
         {
-            var bootstrapper = new Bootstrapper();
-            var browser = new Browser(bootstrapper);
-            var testStudent = await browser.CreateTestStudentAsync();
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+        });
 
-            var result = await browser.Get("/students", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-            });
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        var studentList = result.Body.DeserializeJson<Student[]>();
+        Assert.Single(studentList, testStudent);
+    }
 
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            var studentList = result.Body.DeserializeJson<Student[]>();
-            Assert.Single(studentList, testStudent);
-        }
+    [Fact]
+    public async Task Should_UpdateStudentAsync()
+    {
+        var bootstrapper = new Bootstrapper();
+        var browser = new Browser(bootstrapper);
+        var testStudent = await browser.CreateTestStudentAsync();
 
-        [Fact]
-        public async Task Should_UpdateStudentAsync()
+        var result = await browser.Put($"/students/{testStudent.Id}", with =>
         {
-            var bootstrapper = new Bootstrapper();
-            var browser = new Browser(bootstrapper);
-            var testStudent = await browser.CreateTestStudentAsync();
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+            with.JsonBody(new { Name = "Foo" });
+        });
 
-            var result = await browser.Put($"/students/{testStudent.Id}", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-                with.JsonBody(new {Name = "Foo"});
-            });
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        var updatedStudent = result.Body.DeserializeJson<Student>();
+        Assert.Equal(updatedStudent.Name, "Foo");
+    }
 
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            var updatedStudent = result.Body.DeserializeJson<Student>();
-            Assert.Equal(updatedStudent.Name, "Foo");
-        }
+    [Fact]
+    public async Task Should_GetListOfStudentsByTeacherAsync()
+    {
+        var bootstrapper = new Bootstrapper();
+        var browser = new Browser(bootstrapper);
+        var testStudent = await browser.CreateTestStudentAsync();
+        var testTeacher = await browser.CreateTestTeacherAsync();
+        await browser.AddStudentToTeacherAsync(testStudent.Id, testTeacher.Id);
 
-        [Fact]
-        public async Task Should_GetListOfStudentsByTeacherAsync()
+        var result = await browser.Get($"/teachers/{testTeacher.Id}/students", with =>
         {
-            var bootstrapper = new Bootstrapper();
-            var browser = new Browser(bootstrapper);
-            var testStudent = await browser.CreateTestStudentAsync();
-            var testTeacher = await browser.CreateTestTeacherAsync();
-            await browser.AddStudentToTeacherAsync(testStudent.Id, testTeacher.Id);
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+        });
 
-            var result = await browser.Get($"/teachers/{testTeacher.Id}/students", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-            });
-
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            var studentList = result.Body.DeserializeJson<Student[]>();
-            Assert.Single(studentList, testStudent);
-        }
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        var studentList = result.Body.DeserializeJson<Student[]>();
+        Assert.Single(studentList, testStudent);
     }
 }

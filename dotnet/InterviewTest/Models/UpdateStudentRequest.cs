@@ -1,17 +1,16 @@
-﻿namespace InterviewTest.Models
+﻿namespace InterviewTest.Models;
+
+using FluentValidation;
+
+public class UpdateStudentRequest
 {
-    using FluentValidation;
+    public string Name { get; set; }
+}
 
-    public class UpdateStudentRequest
+public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequest>
+{
+    public UpdateStudentRequestValidator()
     {
-        public string Name { get; set; }
-    }
-
-    public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequest>
-    {
-        public UpdateStudentRequestValidator()
-        {
-            RuleFor(request => request.Name).NotEmpty();
-        }
+        RuleFor(request => request.Name).NotEmpty();
     }
 }

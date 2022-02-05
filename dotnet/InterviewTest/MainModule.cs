@@ -1,12 +1,11 @@
-namespace InterviewTest
-{
-    using Nancy;
+namespace InterviewTest;
 
-    public class MainModule : NancyModule
+using Nancy;
+
+public class MainModule : NancyModule
+{
+    public MainModule()
     {
-        public MainModule()
-        {
-            Get("/", args => "Hello from Nancy running on CoreCLR");
-        }
+        Get("/", args => "Hello from Nancy running on CoreCLR");
     }
 }

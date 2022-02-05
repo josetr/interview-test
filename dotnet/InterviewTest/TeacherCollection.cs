@@ -1,32 +1,31 @@
+namespace InterviewTest;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace InterviewTest
+public class TeacherCollection
 {
-    public class TeacherCollection
+    private ConcurrentDictionary<Guid, Teacher> _teachers = new ConcurrentDictionary<Guid, Teacher>();
+
+    public bool AddTeacher(Teacher teacher)
     {
-        private ConcurrentDictionary<Guid, Teacher> _teachers = new ConcurrentDictionary<Guid, Teacher>();
+        return _teachers.TryAdd(teacher.Id, teacher);
+    }
 
-        public bool AddTeacher(Teacher teacher)
-        {
-            return _teachers.TryAdd(teacher.Id, teacher);
-        }
+    public IEnumerable<Teacher> GetTeachers()
+    {
+        return _teachers.Values;
+    }
 
-        public IEnumerable<Teacher> GetTeachers()
-        {
-            return _teachers.Values;
-        }
+    public Teacher GetTeacherById(Guid teacherId)
+    {
+        _teachers.TryGetValue(teacherId, out var teacher);
+        return teacher;
+    }
 
-        public Teacher GetTeacherById(Guid teacherId)
-        {
-            _teachers.TryGetValue(teacherId, out var teacher);
-            return teacher;
-        }
-
-        public void Clear()
-        {
-            _teachers.Clear();
-        }
+    public void Clear()
+    {
+        _teachers.Clear();
     }
 }

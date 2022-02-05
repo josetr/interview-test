@@ -1,13 +1,12 @@
-namespace InterviewTest
-{
-    using Microsoft.AspNetCore.Builder;
-    using Nancy.Owin;
+namespace InterviewTest;
 
-    public class Startup
+using Microsoft.AspNetCore.Builder;
+using Nancy.Owin;
+
+public class Startup
+{
+    public void Configure(IApplicationBuilder app)
     {
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UseOwin(x => x.UseNancy(new NancyOptions() { Bootstrapper = new Bootstrapper() }));
-        }
+        app.UseOwin(x => x.UseNancy(new NancyOptions() { Bootstrapper = new Bootstrapper() }));
     }
 }

@@ -1,56 +1,55 @@
+namespace InterviewTest.Tests;
+
 using System;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Testing;
 using Xunit;
 
-namespace InterviewTest.Tests
+public static class Utils
 {
-    public static class Utils
+    private static Guid GuidOne = Guid.NewGuid();
+
+    public static async Task<Student> CreateTestStudentAsync(this Browser browser)
     {
-        private static Guid GuidOne = Guid.NewGuid();
+        var testStudent = new Student(GuidOne, "Student");
 
-        public static async Task<Student> CreateTestStudentAsync(this Browser browser)
+        var postResult = await browser.Post("/students", with =>
         {
-            var testStudent = new Student(GuidOne, "Student");
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+            with.JsonBody(testStudent);
+        });
 
-            var postResult = await browser.Post("/students", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-                with.JsonBody(testStudent);
-            });
+        Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
+        return testStudent;
+    }
 
-            Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
-            return testStudent;
-        }
+    public static async Task<Teacher> CreateTestTeacherAsync(this Browser browser)
+    {
+        var testTeacher = new Teacher(GuidOne, "Teacher");
 
-        public static async Task<Teacher> CreateTestTeacherAsync(this Browser browser)
+        var postResult = await browser.Post("/teachers", with =>
         {
-            var testTeacher = new Teacher(GuidOne, "Teacher");
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+            with.JsonBody(testTeacher);
+        });
 
-            var postResult = await browser.Post("/teachers", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-                with.JsonBody(testTeacher);
-            });
-            
-            Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
-            return testTeacher;
-        }
+        Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
+        return testTeacher;
+    }
 
-        public static async Task AddStudentToTeacherAsync(this Browser browser, Guid studentId, Guid teacherId)
+    public static async Task AddStudentToTeacherAsync(this Browser browser, Guid studentId, Guid teacherId)
+    {
+        var putBody = new { studentId };
+        var postResult = await browser.Post($"/teachers/{teacherId}/students", with =>
         {
-            var putBody = new {studentId};
-            var postResult = await browser.Post($"/teachers/{teacherId}/students", with =>
-            {
-                with.HttpRequest();
-                with.Header("Accept", "application/json");
-                with.JsonBody(putBody);
-            });
+            with.HttpRequest();
+            with.Header("Accept", "application/json");
+            with.JsonBody(putBody);
+        });
 
-            Assert.Equal(HttpStatusCode.OK, postResult.StatusCode);
-        }
+        Assert.Equal(HttpStatusCode.OK, postResult.StatusCode);
     }
 }

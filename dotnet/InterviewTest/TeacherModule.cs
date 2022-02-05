@@ -14,7 +14,11 @@ using Nancy.Validation;
             Get("/", args => Response.AsJson(teacherList.GetTeachers()));
             Post("/", _ =>
             {
-                var teacher = this.Bind<Teacher>();
+                var addTeacherRequest = this.Bind<AddTeacherRequest>();
+                var validationResult = this.Validate(addTeacherRequest);
+                if (!validationResult.IsValid)
+                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var teacher = new Teacher(addTeacherRequest.Id, addTeacherRequest.Name);
                 if (!teacherList.AddTeacher(teacher))
                     return HttpStatusCode.Conflict;
                 return HttpStatusCode.Created;

@@ -16,8 +16,12 @@ namespace InterviewTest
             });
             Post("/", _ =>
             {
-                var student = this.Bind<Student>();
-                if (!studentList.AddStudent(student))
+                var addStudenRequest = this.Bind<AddStudentRequest>();
+                var validationResult = this.Validate(addStudenRequest);
+                if (!validationResult.IsValid)
+                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var teacher = new Student(addStudenRequest.Id, addStudenRequest.Name);
+                if (!studentList.AddStudent(teacher))
                     return HttpStatusCode.Conflict;
                 return HttpStatusCode.Created;
             });

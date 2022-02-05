@@ -14,9 +14,9 @@ namespace InterviewTest
             students[student.Id] = student;
         }
 
-        public List<Student> GetStudents()
+        public IEnumerable<Student> GetStudents()
         {
-            return students.Values.ToList();
+            return students.Values;
         }
 
         public Student GetStudentById(Guid studentId)

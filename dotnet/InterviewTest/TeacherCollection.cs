@@ -13,9 +13,9 @@ namespace InterviewTest
             _teachers[teacher.Id] = teacher;
         }
 
-        public List<Teacher> GetTeachers()
+        public IEnumerable<Teacher> GetTeachers()
         {
-            return _teachers.Values.ToList();
+            return _teachers.Values;
         }
 
         public Teacher GetTeacherById(Guid teacherId)

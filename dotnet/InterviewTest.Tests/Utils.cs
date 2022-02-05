@@ -1,11 +1,5 @@
 namespace InterviewTest.Tests;
 
-using System;
-using System.Threading.Tasks;
-using Nancy;
-using Nancy.Testing;
-using Xunit;
-
 public static class Utils
 {
     private static Guid GuidOne = Guid.NewGuid();

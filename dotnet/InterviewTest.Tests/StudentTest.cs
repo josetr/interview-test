@@ -1,10 +1,5 @@
 namespace InterviewTest.Tests;
 
-using System.Threading.Tasks;
-using Nancy;
-using Nancy.Testing;
-using Xunit;
-
 public class StudentTest
 {
     [Fact]

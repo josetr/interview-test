@@ -16,10 +16,9 @@ namespace InterviewTest
             });
             Post("/", _ =>
             {
-                var addStudenRequest = this.Bind<AddStudentRequest>();
-                var validationResult = this.Validate(addStudenRequest);
-                if (!validationResult.IsValid)
-                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var addStudenRequest = this.BindAndValidate<AddStudentRequest>();
+                if (!ModelValidationResult.IsValid)
+                    return Negotiate.WithModel(ModelValidationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 var teacher = new Student(addStudenRequest.Id, addStudenRequest.Name);
                 if (!studentList.AddStudent(teacher))
                     return HttpStatusCode.Conflict;
@@ -27,10 +26,9 @@ namespace InterviewTest
             });
             Put("/{studentId}", args =>
             {
-                var updates = this.Bind<UpdateStudentRequest>();
-                var validationResult = this.Validate(updates);
-                if (!validationResult.IsValid)
-                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var updates = this.BindAndValidate<UpdateStudentRequest>();
+                if (!ModelValidationResult.IsValid)
+                    return Negotiate.WithModel(ModelValidationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 Guid studentId = args.studentId;
                 var studentToUpdate = studentList.GetStudentById(studentId);
                 if (studentToUpdate == null)

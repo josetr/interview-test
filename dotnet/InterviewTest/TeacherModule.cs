@@ -14,10 +14,9 @@ using Nancy.Validation;
             Get("/", args => Response.AsJson(teacherList.GetTeachers()));
             Post("/", _ =>
             {
-                var addTeacherRequest = this.Bind<AddTeacherRequest>();
-                var validationResult = this.Validate(addTeacherRequest);
-                if (!validationResult.IsValid)
-                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var addTeacherRequest = this.BindAndValidate<AddTeacherRequest>();
+                if (!ModelValidationResult.IsValid)
+                    return Negotiate.WithModel(ModelValidationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 var teacher = new Teacher(addTeacherRequest.Id, addTeacherRequest.Name);
                 if (!teacherList.AddTeacher(teacher))
                     return HttpStatusCode.Conflict;
@@ -25,10 +24,9 @@ using Nancy.Validation;
             });
             Get("/{teacherId}/students", args =>
             {
-                var studentRequestParams = this.Bind<GetTeacherStudentsRequest>();
-                var validationResult = this.Validate(studentRequestParams);
-                if (!validationResult.IsValid)
-                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var studentRequestParams = this.BindAndValidate<GetTeacherStudentsRequest>();
+                if (!ModelValidationResult.IsValid)
+                    return Negotiate.WithModel(ModelValidationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 var teacherId = studentRequestParams.TeacherId;
                 var teacher = teacherList.GetTeacherById(teacherId);
                 if (teacher == null)
@@ -37,10 +35,9 @@ using Nancy.Validation;
             });
             Post("/{teacherId}/students", args =>
             {
-                var putBody = this.Bind<AddTeacherStudentRequest>();
-                var validationResult = this.Validate(putBody);
-                if (!validationResult.IsValid)
-                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+                var putBody = this.BindAndValidate<AddTeacherStudentRequest>();
+                if (!ModelValidationResult.IsValid)
+                    return Negotiate.WithModel(ModelValidationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 Guid teacherId = args.teacherId;
                 var teacherToUpdate = teacherList.GetTeacherById(teacherId);
                 if (teacherToUpdate == null)

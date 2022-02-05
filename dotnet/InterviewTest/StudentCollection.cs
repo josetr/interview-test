@@ -1,13 +1,12 @@
-using InterviewTest.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace InterviewTest
 {
     public class StudentCollection
     {
-        private Dictionary<Guid, Student> students = new Dictionary<Guid, Student>();
+        private ConcurrentDictionary<Guid, Student> students = new ConcurrentDictionary<Guid, Student>();
 
         public bool AddStudent(Student student)
         {

@@ -1,12 +1,12 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace InterviewTest
 {
     public class TeacherCollection
     {
-        private Dictionary<Guid, Teacher> _teachers = new Dictionary<Guid, Teacher>();
+        private ConcurrentDictionary<Guid, Teacher> _teachers = new ConcurrentDictionary<Guid, Teacher>();
 
         public bool AddTeacher(Teacher teacher)
         {
@@ -23,6 +23,7 @@ namespace InterviewTest
             _teachers.TryGetValue(teacherId, out var teacher);
             return teacher;
         }
+
         public void Clear()
         {
             _teachers.Clear();

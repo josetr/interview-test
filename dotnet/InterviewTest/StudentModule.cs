@@ -7,15 +7,11 @@ namespace InterviewTest
 
     public sealed class StudentModule : NancyModule
     {
-        public StudentModule(TeacherCollection teacherList, StudentCollection studentList) : base("/students")
+        public StudentModule(StudentCollection studentList) : base("/students")
         {
             Get("/", args =>
             {
-                var studentRequestParams = this.Bind<GetTeacherStudentsRequest>();
-                var teacherId = studentRequestParams.TeacherId;
-                return teacherId != null
-                    ? Response.AsJson(teacherList.GetTeacherById(teacherId.Value).Students)
-                    : Response.AsJson(studentList.GetStudents());
+                return Response.AsJson(studentList.GetStudents());
             });
             Post("/", _ =>
             {

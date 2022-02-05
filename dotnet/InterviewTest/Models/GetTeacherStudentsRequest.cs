@@ -4,6 +4,6 @@
 
     public class GetTeacherStudentsRequest
     {
-        public Guid? TeacherId { get; set; }
+        public Guid TeacherId { get; set; }
     }
 }

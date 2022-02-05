@@ -17,6 +17,12 @@ namespace InterviewTest
                 teacherList.AddTeacher(teacher);
                 return HttpStatusCode.Created;
             });
+            Get("/{teacherId}/students", args =>
+            {
+                var studentRequestParams = this.Bind<GetTeacherStudentsRequest>();
+                var teacherId = studentRequestParams.TeacherId;
+                return Response.AsJson(teacherList.GetTeacherById(teacherId).Students);
+            });
             Post("/{teacherId}/students", args =>
             {
                 var putBody = this.Bind<AddTeacherStudentRequest>();

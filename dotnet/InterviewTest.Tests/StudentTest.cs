@@ -61,10 +61,9 @@ namespace InterviewTest.Tests
             var testTeacher = await browser.CreateTestTeacherAsync();
             await browser.AddStudentToTeacherAsync(testStudent.Id, testTeacher.Id);
 
-            var result = await browser.Get("/students", with =>
+            var result = await browser.Get($"/teachers/{testTeacher.Id}/students", with =>
             {
                 with.HttpRequest();
-                with.Query("teacherId", "1");
             });
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);

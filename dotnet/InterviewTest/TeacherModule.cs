@@ -5,6 +5,7 @@ namespace InterviewTest
     using InterviewTest.Models;
     using Nancy;
     using Nancy.ModelBinding;
+using Nancy.Validation;
 
     public sealed class TeacherModule : NancyModule
     {
@@ -21,6 +22,9 @@ namespace InterviewTest
             Get("/{teacherId}/students", args =>
             {
                 var studentRequestParams = this.Bind<GetTeacherStudentsRequest>();
+                var validationResult = this.Validate(studentRequestParams);
+                if (!validationResult.IsValid)
+                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 var teacherId = studentRequestParams.TeacherId;
                 var teacher = teacherList.GetTeacherById(teacherId);
                 if (teacher == null)
@@ -30,6 +34,9 @@ namespace InterviewTest
             Post("/{teacherId}/students", args =>
             {
                 var putBody = this.Bind<AddTeacherStudentRequest>();
+                var validationResult = this.Validate(putBody);
+                if (!validationResult.IsValid)
+                    return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
                 Guid teacherId = args.teacherId;
                 var teacherToUpdate = teacherList.GetTeacherById(teacherId);
                 if (teacherToUpdate == null)

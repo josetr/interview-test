@@ -13,7 +13,7 @@ namespace InterviewTest
             Id = id;
         }
 
-        public Person() { }
+        protected Person() { }
 
         public override bool Equals(object obj)
         {

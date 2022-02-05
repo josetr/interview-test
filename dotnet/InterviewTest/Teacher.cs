@@ -7,7 +7,7 @@ namespace InterviewTest
     {
         // required for serialization
         // ReSharper disable once UnusedMember.Global
-        public Teacher()
+        private Teacher()
         {
         }
 

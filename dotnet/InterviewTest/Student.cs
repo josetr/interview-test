@@ -4,7 +4,7 @@ namespace InterviewTest
 
     public class Student : Person
     {
-        public Student() { }
+        private Student() { }
         public Student(Guid id, string name) : base(id, name) { }
     }
 }

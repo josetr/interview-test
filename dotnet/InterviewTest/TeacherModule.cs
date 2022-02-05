@@ -17,7 +17,7 @@ namespace InterviewTest
                 teacherList.AddTeacher(teacher);
                 return HttpStatusCode.Created;
             });
-            Put("/{teacherId}", args =>
+            Post("/{teacherId}/students", args =>
             {
                 var putBody = this.Bind<AddTeacherStudentRequest>();
                 Guid teacherId = args.teacherId;

@@ -41,7 +41,7 @@ namespace InterviewTest.Tests
         public static async Task AddStudentToTeacherAsync(this Browser browser, Guid studentId, Guid teacherId)
         {
             var putBody = new {studentId};
-            var postResult = await browser.Put($"/teachers/{teacherId}", with =>
+            var postResult = await browser.Post($"/teachers/{teacherId}/students", with =>
             {
                 with.HttpRequest();
                 with.JsonBody(putBody);

@@ -45,7 +45,7 @@ namespace InterviewTest.Tests
             var testStudent = await browser.CreateTestStudentAsync();
 
             var putBody = new {studentId = testStudent.Id};
-            var result = await browser.Put($"/teachers/{testTeacher.Id}",
+            var result = await browser.Post($"/teachers/{testTeacher.Id}/students",
                 with =>
                 {
                     with.HttpRequest();

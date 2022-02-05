@@ -12,7 +12,7 @@ namespace InterviewTest
     {
         public TeacherModule(TeacherCollection teacherList, StudentCollection studentList) : base("/teachers")
         {
-            Get("/", args => Response.AsJson(teacherList.GetTeachers()));
+            Get("/", args => teacherList.GetTeachers());
             Post("/", _ =>
             {
                 var addTeacherRequest = this.BindAndValidate<AddTeacherRequest>();
@@ -32,7 +32,7 @@ namespace InterviewTest
                 var teacher = teacherList.GetTeacherById(teacherId);
                 if (teacher == null)
                     return HttpStatusCode.NotFound;
-                return Response.AsJson(teacher.Students.Select(x => x.ToDto()));
+                return teacher.Students.Select(x => x.ToDto());
             });
             Post("/{teacherId}/students", args =>
             {
@@ -47,7 +47,7 @@ namespace InterviewTest
                 if (studentToAdd == null)
                     return HttpStatusCode.NotFound;
                 teacherToUpdate.AddStudent(studentToAdd);
-                return Response.AsJson(teacherToUpdate.ToDto());
+                return teacherToUpdate.ToDto();
             });
         }
     }

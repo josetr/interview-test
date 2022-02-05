@@ -14,7 +14,11 @@ namespace InterviewTest.Tests
             var bootstrapper = new Bootstrapper();
             var browser = new Browser(bootstrapper);
 
-            var result = await browser.Get("/students", with => with.HttpRequest());
+            var result = await browser.Get("/students", with =>
+            {
+                with.HttpRequest();
+                with.Header("Accept", "application/json");
+            });
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.Equal("[]", result.Body.AsString());
@@ -27,7 +31,11 @@ namespace InterviewTest.Tests
             var browser = new Browser(bootstrapper);
             var testStudent = await browser.CreateTestStudentAsync();
 
-            var result = await browser.Get("/students", with => with.HttpRequest());
+            var result = await browser.Get("/students", with =>
+            {
+                with.HttpRequest();
+                with.Header("Accept", "application/json");
+            });
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             var studentList = result.Body.DeserializeJson<Student[]>();
@@ -44,6 +52,7 @@ namespace InterviewTest.Tests
             var result = await browser.Put($"/students/{testStudent.Id}", with =>
             {
                 with.HttpRequest();
+                with.Header("Accept", "application/json");
                 with.JsonBody(new {Name = "Foo"});
             });
 
@@ -64,6 +73,7 @@ namespace InterviewTest.Tests
             var result = await browser.Get($"/teachers/{testTeacher.Id}/students", with =>
             {
                 with.HttpRequest();
+                with.Header("Accept", "application/json");
             });
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);

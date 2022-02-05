@@ -12,7 +12,7 @@ namespace InterviewTest
         {
             Get("/", args =>
             {
-                return Response.AsJson(studentList.GetStudents());
+                return studentList.GetStudents();
             });
             Post("/", _ =>
             {
@@ -34,7 +34,7 @@ namespace InterviewTest
                 if (studentToUpdate == null)
                     return HttpStatusCode.NotFound;
                 studentToUpdate.Name = updates.Name;
-                return Response.AsJson(studentToUpdate.ToDto());
+                return studentToUpdate.ToDto();
             });
         }
     }

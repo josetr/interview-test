@@ -17,6 +17,7 @@ namespace InterviewTest.Tests
             var postResult = await browser.Post("/students", with =>
             {
                 with.HttpRequest();
+                with.Header("Accept", "application/json");
                 with.JsonBody(testStudent);
             });
 
@@ -31,6 +32,7 @@ namespace InterviewTest.Tests
             var postResult = await browser.Post("/teachers", with =>
             {
                 with.HttpRequest();
+                with.Header("Accept", "application/json");
                 with.JsonBody(testTeacher);
             });
             
@@ -44,6 +46,7 @@ namespace InterviewTest.Tests
             var postResult = await browser.Post($"/teachers/{teacherId}/students", with =>
             {
                 with.HttpRequest();
+                with.Header("Accept", "application/json");
                 with.JsonBody(putBody);
             });
 

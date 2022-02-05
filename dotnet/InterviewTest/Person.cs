@@ -17,12 +17,7 @@ namespace InterviewTest
 
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            return Id == ((Person)obj).Id || base.Equals(obj);
+            return obj is Person person && Id == person.Id;
         }
 
         public override int GetHashCode()

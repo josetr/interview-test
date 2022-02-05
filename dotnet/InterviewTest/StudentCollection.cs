@@ -29,10 +29,5 @@ namespace InterviewTest
         {
             students.Clear();
         }
-
-        public void Update(Student studentToUpdate, UpdateStudentRequest updates)
-        {
-            students[studentToUpdate.Id].Name = updates.Name;
-        }
     }
 }

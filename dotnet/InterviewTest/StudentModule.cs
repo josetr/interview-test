@@ -26,7 +26,7 @@ namespace InterviewTest
                 var studentToUpdate = studentList.GetStudentById(studentId);
                 if (studentToUpdate == null)
                     return HttpStatusCode.NotFound;
-                studentList.Update(studentToUpdate, updates);
+                studentToUpdate.Name = updates.Name;
                 return Response.AsJson(studentToUpdate);
             });
         }
